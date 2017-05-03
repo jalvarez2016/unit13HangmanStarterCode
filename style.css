@@ -10,7 +10,7 @@ body {
 
 #word {
   font-size:5em;
-  letter-spacing:0.25em
+  letter-spacing:0.25em;
 }
 
 #newgame {
@@ -19,3 +19,5 @@ body {
   padding:0.5em;
   margin:1em;
 }
+
+
