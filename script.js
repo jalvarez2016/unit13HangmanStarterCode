@@ -39,14 +39,14 @@ function prepareGame() {
 // in this onWin() function below 
 // 1. alert "You won!"
 function onWin() {
-  $("#body").alert("You won!");
+  $("body").alert("You won!");
   
 }
 
 // in this onLose() function below 
 // 1. alert "You lost!"
 function onLose() {
-  $("#body").alert("You Killed A Man!");
+  $("body").alert("You Killed A Man! ");
   
   
 }
@@ -60,7 +60,7 @@ function checkIfWon() {
   var hasAll = true;
   secretWord.forEach(function(letter) {
     $("letter").append(letter);
-    if (!correctGuesses.contains(letter)){
+    if (!correctGuesses.join('').includes(letter)){
       hasAll = false;
     }
   });
@@ -77,7 +77,7 @@ function checkIfWon() {
 // 1. declare a variable misses and set it equal to the length of wrongGuesses array
 // 2. if misses is less than 6 return false else return true
 function checkIfLost() {
-  var misses = wrongGuesses().length;
+  var misses = wrongGuesses.length;
   if ( misses < 6 ){
       return false;
   } else 
@@ -92,7 +92,7 @@ function checkIfLost() {
 // 2. call the drawWord function
 // 3. if the checkIfWon() is returns true call the onWin() function 
 function onCorrectGuess(letter) {
-    correctGuesses + letter;
+    correctGuesses.push(letter);
     drawWord();
     if (checkIfWon() == true) {
         onWin();
@@ -107,7 +107,7 @@ function onCorrectGuess(letter) {
 // 2. call the drawHangman function
 // 3. if the checkIfLost() function returns true call the onLose() function 
 function onWrongGuess(letter) {
-    wrongGuesses + letter;
+    wrongGuesses.push();
     drawHangman();
     if (checkIfLost() == true) {
         onLose();
@@ -122,7 +122,7 @@ function onWrongGuess(letter) {
 // 1. if the letter is included in secretWord, call the onCorrectGuess(letter) function
 //    otherwise call onWrongGuess(letter) function
 function judgeGuess(letter) {
-  if (secretWord.contains(letter)) {
+  if (secretWord.join("").includes(letter)) {
       onCorrectGuess(letter);
   } else {
       onWrongGuess(letter);
@@ -139,10 +139,10 @@ function judgeGuess(letter) {
 //    if correctGuesses includes letter append the letter
 //    othewise append and underscore
 function drawWord() {
-  $("#word").html("");
+    $("#word").empty();
     secretWord.forEach(function(letter) {
     $("letter").append(letter);
-    if (correctGuesses.inArray(letter)){
+    if ($.inArray(letter,correctGuesses) > -1){
       $("word").append(letter);
     }else{
       $("#word").append("_");
@@ -183,8 +183,9 @@ function drawHangman() {
 // 3. call the judgeGuess function with letter as an parameter
 
 function onKeyDown(event) {
-  var letter = event.char;
-  letter= letter.toUpperCase();
+  console.log("this is the greatest plan");
+  var letter =String.fromCharCode(event.which);
+  console.log(letter);
   judgeGuess(letter);
   
 }
@@ -194,7 +195,5 @@ function onKeyDown(event) {
 //       (Keydown function should take onKeyDown function as an argument)
 $(document).ready(function() {
   prepareGame();
- $("input").keydown(onKeyDown)
- 
-  
+ $("body").keydown(onKeyDown);
 });
