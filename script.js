@@ -39,14 +39,14 @@ function prepareGame() {
 // in this onWin() function below 
 // 1. alert "You won!"
 function onWin() {
-  $("body").alert("You won!");
+  alert("Dammit he's still alive ...   I mean You won!       yay");
   
 }
 
 // in this onLose() function below 
 // 1. alert "You lost!"
 function onLose() {
-  $("body").alert("You Killed A Man! ");
+  alert("You Killed A Man!      yay");
   
   
 }
@@ -107,8 +107,10 @@ function onCorrectGuess(letter) {
 // 2. call the drawHangman function
 // 3. if the checkIfLost() function returns true call the onLose() function 
 function onWrongGuess(letter) {
-    wrongGuesses.push();
-    drawHangman();
+    if (wrongGuesses.length < 6) {
+        wrongGuesses.push(letter);
+        drawHangman();
+    }
     if (checkIfLost() == true) {
         onLose();
     }
@@ -143,7 +145,7 @@ function drawWord() {
     secretWord.forEach(function(letter) {
     $("letter").append(letter);
     if ($.inArray(letter,correctGuesses) > -1){
-      $("word").append(letter);
+      $("#word").append(letter);
     }else{
       $("#word").append("_");
     }
